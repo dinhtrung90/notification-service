@@ -56,9 +56,9 @@ class NotificationServiceKafkaResourceIT {
         consumerProps.put("client.id", "default-client");
         kafkaProperties.setConsumer(consumerProps);
 
-        NotificationServiceKafkaResource kafkaResource = new NotificationServiceKafkaResource(kafkaProperties);
+//        NotificationServiceKafkaResource kafkaResource = new NotificationServiceKafkaResource(kafkaProperties);
 
-        restMockMvc = MockMvcBuilders.standaloneSetup(kafkaResource).build();
+//        restMockMvc = MockMvcBuilders.standaloneSetup(kafkaResource).build();
     }
 
     @Test
