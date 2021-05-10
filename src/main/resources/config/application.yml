@@ -105,6 +105,28 @@ management:
             enabled: true
 
 spring:
+  kafka:
+    bootstrap-servers: ${CLOUDKARAFKA_BROKERS}
+    consumer:
+      auto-offset-reset: latest
+      group-id: ${CLOUDKARAFKA_USERNAME}-consumers
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.vts.clientcenter
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule
+            required username="${CLOUDKARAFKA_USERNAME}" password="${CLOUDKARAFKA_PASSWORD}";
+        mechanism: SCRAM-SHA-256
+      security:
+        protocol: SASL_SSL
+
   autoconfigure:
     exclude: org.springframework.boot.actuate.autoconfigure.metrics.jdbc.DataSourcePoolMetricsAutoConfiguration
   application:
@@ -160,11 +182,11 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://localhost:9080/auth/realms/jhipster
+            issuer-uri: https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_KLeHTBUFR
         registration:
           oidc:
-            client-id: internal
-            client-secret: internal
+            client-id: 22p22m43lkckvv08g1poqljkcd
+            client-secret: 16rglv9ba66g9c7j0pegililcb6g8gaj48f35mlfrvd6j0k2daul
 
 server:
   servlet:
@@ -212,16 +234,16 @@ jhipster:
       audience:
         - account
         - api://default
-kafka:
-  bootstrap-servers: localhost:9092
-  consumer:
-    key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    group.id: notification-service
-    auto.offset.reset: earliest
-  producer:
-    key.serializer: org.apache.kafka.common.serialization.StringSerializer
-    value.serializer: org.apache.kafka.common.serialization.StringSerializer
+#kafka:
+#  bootstrap-servers: ${app.kafka-url}:9092
+#  consumer:
+#    key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    value.deserializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    group.id: tvsales-message-groups
+#    auto.offset.reset: earliest
+#  producer:
+#    key.serializer: org.apache.kafka.common.serialization.StringSerializer
+#    value.serializer: org.springframework.kafka.support.serializer.JsonSerializer
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
@@ -232,3 +254,6 @@ kafka:
 # ===================================================================
 
 # application:
+  cloudkarafka:
+    topic: ${CLOUDKARAFKA_USERNAME}-default
+    email-invitation: ${CLOUDKARAFKA_USERNAME}-email-invitations-topic
