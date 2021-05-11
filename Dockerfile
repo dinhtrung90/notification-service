@@ -1,6 +1,6 @@
 FROM adoptopenjdk:11-jre-hotspot
 
-EXPOSE 8087
+EXPOSE 7087
 
 # Install vim
 RUN apt-get update && apt-get install -y vim
