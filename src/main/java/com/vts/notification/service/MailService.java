@@ -8,7 +8,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -16,9 +16,8 @@ import javax.mail.internet.MimeMessage;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-@Component
+@Service
 public class MailService {
-
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     private static final String USER = "user";

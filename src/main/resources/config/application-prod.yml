@@ -24,7 +24,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+      defaultZone: http://admin:${jhipster.registry.password}@${app.registry-url}:8761/eureka/
 
 management:
   metrics:
@@ -33,6 +33,10 @@ management:
         enabled: false
 
 spring:
+  profiles:
+    active: prod
+    include:
+      - no-liquibase
   devtools:
     restart:
       enabled: false
@@ -40,9 +44,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/NotificationService?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://${app.mysql-url}:3306/NotificationService?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
-    password:
+    password: Pa55w0rd
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -57,10 +61,17 @@ spring:
   liquibase:
     contexts: prod
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: ${app.mail-url}
+    port: 587
+    username: trung.vudinh1990@gmail.com
+    password: Trungvu1990
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   thymeleaf:
     cache: true
   sleuth:
@@ -112,7 +123,7 @@ jhipster:
   cache: # Cache configuration
     redis: # Redis configuration
       expiration: 3600 # By default objects stay 1 hour (in seconds) in the cache
-      server: redis://localhost:6379
+      server: redis://${app.redis-password}@${app.redis-url}:6379
       cluster: false
       # server: redis://localhost:6379,redis://localhost:16379,redis://localhost:26379
       # cluster: true

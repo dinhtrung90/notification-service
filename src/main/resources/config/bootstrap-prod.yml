@@ -2,7 +2,21 @@
 # Spring Cloud Config bootstrap configuration for the "prod" profile
 # ===================================================================
 
+CLOUDKARAFKA_BROKERS: dory-01.srvs.cloudkafka.com:9094,dory-02.srvs.cloudkafka.com:9094,dory-03.srvs.cloudkafka.com:9094
+CLOUDKARAFKA_USERNAME: ztm7e2w2
+CLOUDKARAFKA_PASSWORD: FKYR1fJmXoCrJ6dY4vyCwNRdLU65Z4cD
+
+app:
+  registry-url: vps-5785f290.vps.ovh.ca
+  redis-url: vps-5785f290.vps.ovh.ca
+  redis-password: Pa55w0rd
+  kafka-url: vps-5785f290.vps.ovh.ca
+  mysql-url: vps-5785f290.vps.ovh.ca
+  mail-url: smtp.gmail.com
+
 spring:
+  application:
+    name: NotificationService
   cloud:
     config:
       fail-fast: true
@@ -10,7 +24,7 @@ spring:
         initial-interval: 1000
         max-interval: 2000
         max-attempts: 100
-      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+      uri: http://admin:${jhipster.registry.password}@${app.registry-url}:8761/config
       # name of the config server's property source (file.yml) that we want to use
       name: NotificationService
       profile: prod # profile(s) of the property source
