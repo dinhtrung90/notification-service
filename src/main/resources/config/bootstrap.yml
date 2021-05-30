@@ -24,7 +24,7 @@ app:
     group:
       consumers: "${app.Kafka-prefix}-consumers"
     topic:
-      invitation: "users-invitation-messages"
+      email-invitation: ${app.kafka-prefix}-email-invitations-topic
 
 
 spring:

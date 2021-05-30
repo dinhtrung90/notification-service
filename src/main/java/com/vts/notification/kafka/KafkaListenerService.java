@@ -25,7 +25,7 @@ public class KafkaListenerService {
     private UserMapper userMapper;
 
     @KafkaListener(
-        topics = "${app.kafka.topic.invitation}",
+        topics = "${app.kafka.topic.email-invitation}",
         groupId = "${app.kafka.group.consumers}",
         containerFactory = "appKafkaListenerContainerFactory")
     void processCreatedAccount(UserDTO message) {

@@ -237,6 +237,4 @@ jhipster:
 # ===================================================================
 
 # application:
-cloudkarafka:
-  topic: ${CLOUDKARAFKA_USERNAME}-default
-  email-invitation: ${CLOUDKARAFKA_USERNAME}-email-invitations-topic
+
